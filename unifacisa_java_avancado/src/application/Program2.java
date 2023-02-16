@@ -71,7 +71,7 @@ public class Program2 {
 					System.out.println(stu);
 				}
 			}
-			
+			//
 			if (opcao == 4) {
 				System.out.println("REMOVER ALUNO");
 				System.out.print("Digite a matrícula do aluno: ");
