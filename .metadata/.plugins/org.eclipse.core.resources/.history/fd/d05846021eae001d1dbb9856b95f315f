@@ -1,0 +1,36 @@
+package application;
+
+import java.util.Locale;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+import entities.Client;
+import entities.ClientComparator;
+
+public class Exercicio03 {
+
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		PriorityQueue<Client> list = new PriorityQueue<Client>(2, new ClientComparator());
+		Client cli1 = new Client("Joao", 1);
+		Client cli2 = new Client("Thiago", 2);
+		Client cli3 = new Client("James", 2);
+
+		list.add(cli1);
+		list.add(cli2);
+		list.add(cli3);
+
+		for (int i = 1; i<= 3; i++) {
+			System.out.println("Topo: " + list.peek());
+			list.poll();
+		}
+		
+
+		sc.close();
+
+	}
+
+}
