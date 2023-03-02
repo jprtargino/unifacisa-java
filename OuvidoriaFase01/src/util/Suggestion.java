@@ -9,8 +9,16 @@ public class Suggestion extends Manifestation{
 		super(person, description);
 	}
 	
+	
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public String toString() {
-		return "Protocolo nº " + protocolNumber(null) + " - Nome do sugeridor: " + person + " - Sugestão: " + description;
+		return "Protocolo nº " 
+				+ listManifestations.indexOf(getDescription()) + 1 
+				+ " - Nome do sugeridor: " 
+				+ person.getName() 
+				+ " - Sugestão: " 
+				+ description;
 	}
+	
 }

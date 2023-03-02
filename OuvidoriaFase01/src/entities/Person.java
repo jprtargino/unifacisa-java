@@ -7,7 +7,7 @@ public class Person {
 	private String name;
 	private String email;
 	private String password;
-	protected boolean admin;
+	public boolean admin;
 	
 	
 	private static ArrayList<Person> listPerson = new ArrayList<Person>();
@@ -31,7 +31,7 @@ public class Person {
 	}
 
 	public boolean isAdmin() {
-		return admin = true;
+		return this.admin = true;
 	}
 
 	public String getName() {
@@ -77,15 +77,15 @@ public class Person {
 		}
 	}
 	
-	public boolean verifyLogin(String email, String password) {
+	public Person verifyLogin(String email, String password) {
 		for (Person p: listPerson) {
 			if (p.getEmail().equals(email) && getPassword().equals(password)) {
-				return true;
+				return p;
 			}
 		}
-		return false;
+		return null;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Nome: " + name + " - E-mail: " + email;

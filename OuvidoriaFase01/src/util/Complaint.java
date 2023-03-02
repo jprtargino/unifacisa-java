@@ -10,8 +10,14 @@ public class Complaint extends Manifestation{
 		}
 		
 
-@Override
-public String toString() {
-	return "Protocolo nº " + protocolNumber(null) + " - Nome do reclamante: " + person + " - Reclamação: " + description;
-}
+		@SuppressWarnings("unlikely-arg-type")
+		@Override
+		public String toString() {
+			return "Protocolo nº " 
+					+ (listManifestations.indexOf(getDescription()) + 1) 
+					+ " - Nome do reclamante: " 
+					+ person.getName() 
+					+ " - Reclamação: " 
+					+ description;
+		}
 }

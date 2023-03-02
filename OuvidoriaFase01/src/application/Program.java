@@ -19,12 +19,14 @@ public class Program {
 		Locale.setDefault(Locale.US);
 		Scanner sc = new Scanner(System.in);
 		
-		Admin admin = new Admin("João Paulo", "joao.targino@maisunifacisa.com.br", "senha123");
-		admin.addPerson(admin);
-		Student stu = new Student("Paulo", "paulo@hotmail.com", "senha456");
-		Student stu2 = new Student("x", "x", "x");
-		stu.addPerson(stu);
-		stu.addPerson(stu2);
+		Person p1 = new Admin("João Paulo", "joao.targino@maisunifacisa.com.br", "senha123");
+		p1.addPerson(p1);
+		Person p2 = new Student("Paulo", "paulo@hotmail.com", "senha456");
+		Person p3 = new Student("x", "x", "x");
+		Person p4 = new Admin("y", "y", "y");
+		p2.addPerson(p2);
+		p3.addPerson(p3);
+		p4.addPerson(p4);
 		
 		int option;
 		
@@ -50,8 +52,8 @@ public class Program {
 				System.out.print("Você é funcionário? (y/n)");
 				char answer = sc.next().charAt(0);
 					if (answer == 'y') {
-						Admin admin2 = new Admin(name, email, password);
-						admin2.addPerson(admin2);
+						Person p = new Admin(name, email, password);
+						p.addPerson(p);
 						System.out.println("Cadastro realizado com sucesso. ");
 					}
 					else {
@@ -73,11 +75,12 @@ public class Program {
 					System.out.print("Senha: ");
 					password2 = sc.nextLine();
 					p = new Person(email2, password2);
-					if (p.verifyLogin(email2, password2) == true) {
+					Person p9 = p.verifyLogin(email2, password2);
+					if (p9 != null) {
 					System.out.println("Login efetuado com sucesso. Seja bem-vindo.");
 					System.out.println();
 					
-					if (p.getClass().isInstance(admin)) {
+					if (p9.admin == true) {
 						do {
 							System.out.println("MENU DE MANIFESTAÇÕES");
 							System.out.println("1 - LISTAR TODAS AS MANIFESTAÇÕES");
@@ -125,7 +128,7 @@ public class Program {
 					}
 					
 					
-					else if (!p.getClass().isInstance(admin)) {
+					else if ((p9.admin == false)){
 						do {
 							System.out.println("MENU DE MANIFESTAÇÕES");
 							System.out.println("1 - CADASTRAR UMA MANIFESTAÇÃO");
@@ -146,19 +149,19 @@ public class Program {
 								String description = sc.nextLine();
 								
 								if (optionManifestation == 1) {
-									Complaint complaint = new Complaint(p, description);
-									complaint.addManifestation(complaint);
-									System.out.println("Reclamação cadastrada com sucesso. Número de protocolo: " + complaint.protocolNumber(complaint));
+									Manifestation manifestation = new Complaint(p, description);
+									manifestation.addManifestation(manifestation);
+									System.out.println("Reclamação cadastrada com sucesso. Número de protocolo: " + manifestation.protocolNumber(manifestation));
 								}
 								else if (optionManifestation == 2) {
-									Suggestion suggestion = new Suggestion(p, description);
-									suggestion.addManifestation(suggestion);
-									System.out.println("Sugestão cadastrada com sucesso. Número de protocolo: " + suggestion.protocolNumber(suggestion));
+									Manifestation manifestation = new Suggestion(p, description);
+									manifestation.addManifestation(manifestation);
+									System.out.println("Sugestão cadastrada com sucesso. Número de protocolo: " + manifestation.protocolNumber(manifestation));
 								}
 								else if (optionManifestation == 3) {
-									Compliment compliment = new Compliment(p, description);
-									compliment.addManifestation(compliment);
-									System.out.println("Reclamação cadastrada com sucesso. Número de protocolo: " + compliment.protocolNumber(compliment));
+									Manifestation manifestation = new Compliment(p, description);
+									manifestation.addManifestation(manifestation);
+									System.out.println("Elogio cadastrado com sucesso. Número de protocolo: " + manifestation.protocolNumber(manifestation));
 								}
 								
 								break;
@@ -190,7 +193,7 @@ public class Program {
 				}
 				
 				}
-				while (p.verifyLogin(email2, password2) == false);
+				while (p.verifyLogin(email2, password2) == null);
 				break;
 			
 		}

@@ -10,8 +10,14 @@ public class Compliment extends Manifestation{
 	}
 	
 	
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public String toString() {
-		return "Protocolo nº " + protocolNumber(null) + " - Nome do elogiante: " + person + " - Elogio: " + description;
+		return "Protocolo nº " 
+				+ listManifestations.indexOf(getDescription()) + 1 
+				+ " - Nome do elogiante: " 
+				+ person.getName() 
+				+ " - Elogio: " 
+				+ description;
 	}
 }

@@ -60,11 +60,12 @@ public abstract class Manifestation {
 	
 	public static void showManifestationsForStudents(String email) {
 		Manifestation z = listManifestations.stream().filter(x-> x.getPerson().getEmail() == email).findFirst().orElse(null);
-		if (listManifestations.contains(z)) {
 			for (Manifestation z1: listManifestations) {
-				System.out.println(z1);
+				if (listManifestations.contains(z)) {
+				System.out.println(z);
+				}
 			}
-		}
+		
 	}
 	
 	public static Manifestation searchManifestation(Person person, Integer protocol) {
@@ -83,8 +84,9 @@ public abstract class Manifestation {
 	
 
 
+	@SuppressWarnings("unlikely-arg-type")
 	public String toString() {
-		return "Protocolo nº " + listManifestations.indexOf(getDescription()) + " - Nome do manifestante: " + person + " - Manifestação: " + description;
+		return "Protocolo nº " + (listManifestations.indexOf(getDescription()) + 1) + " - Nome do manifestante: " + person.getName() + " - Manifestação: " + description;
 	}
 	
 	
