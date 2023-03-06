@@ -1,23 +1,23 @@
 package util;
 
 import entities.Person;
+import entities.enums.Type;
 
 public class Complaint extends Manifestation{
 
 	
-		public Complaint(Person person, String description) {
-			super(person, description);
-		}
+	public Complaint(Person person, String description, Type type) {
+		super(person, description, type);
 		
+	}
 
-		@SuppressWarnings("unlikely-arg-type")
 		@Override
 		public String toString() {
 			return "Protocolo nº " 
-					+ (listManifestations.indexOf(getDescription()) + 1) 
+					+ id 
 					+ " - Nome do reclamante: " 
-					+ person.getName() 
-					+ " - Reclamação: " 
+					+ person.getName()
+					+ " - Reclamação: "
 					+ description;
 		}
 }

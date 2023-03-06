@@ -27,10 +27,11 @@ public class Person {
 	public Person(String email, String password) {
 		this.email = email;
 		this.password = password;
+		this.admin = false;
 	
 	}
 
-	public boolean isAdmin() {
+	public Boolean isAdmin() {
 		return this.admin = true;
 	}
 
@@ -67,6 +68,15 @@ public class Person {
 		listPerson.add(person);
 	}
 	
+	public boolean searchPerson(Person xerox) {
+		if (listPerson.contains(xerox)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
 	public void removePerson(Person person) {
 		listPerson.remove(person);
 	}
@@ -78,12 +88,14 @@ public class Person {
 	}
 	
 	public Person verifyLogin(String email, String password) {
-		for (Person p: listPerson) {
-			if (p.getEmail().equals(email) && getPassword().equals(password)) {
-				return p;
-			}
+		Person y = listPerson.stream().filter(x -> x.getEmail().equals(email) && x.getPassword().equals(password)).findFirst().orElse(null);
+		if (y != null) {
+			return y;
 		}
-		return null;
+		else {
+			return null;
+		}
+		
 	}
 	
 	@Override
