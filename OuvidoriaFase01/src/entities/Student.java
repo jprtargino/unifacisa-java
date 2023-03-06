@@ -6,5 +6,6 @@ public class Student extends Person {
 		super(name, email, password);
 		this.admin = false;
 	}
+	/* Construtor padrão que segue o modelo do Person*/
 	
 }

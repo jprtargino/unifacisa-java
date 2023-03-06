@@ -27,6 +27,7 @@ public class Program {
 		Person p4 = new Admin("y", "y", "y");
 		p4.addPerson(p4);
 		
+		/* Já deixei instanciadas algumas pessoas para testar o menu sem a necessidade de preencher muitos dados*/
 		
 		Manifestation m1 = new Complaint(p2, "Falta papel higiênico no banheiro", Type.COMPLAINT);
 		m1.addManifestation(m1);
@@ -37,10 +38,12 @@ public class Program {
 		Manifestation m3 = new Compliment(p3, "A organização das salas é muito boa", Type.COMPLIMENT);
 		m3.addManifestation(m3);
 
+		/* Com a instanciação de manifestações já prontas, posso, dessa forma, já verificar as opções de listar/procurar/remover uma manifestação*/
+		
 		int option;
 
 		do {
-			System.out.println("Bem-vindo ao Sistema de Ouvidoria");
+			System.out.println("Bem-vindo ao Sistema de Ouvidoria! Selecione a opção desejada: ");
 			System.out.println("1 - CADASTRAR");
 			System.out.println("2 - LOGIN");
 			System.out.println("3 - SAIR");
@@ -58,12 +61,15 @@ public class Program {
 				String email = sc.nextLine();
 				System.out.print("Senha: ");
 				String password = sc.nextLine();
-				System.out.print("Você é funcionário? (y/n)");
+				System.out.print("Você é funcionário? (s/n)");
 				char answer = sc.next().charAt(0);
-				if (answer == 'y') {
+				if (answer == 's') {
 					Person p = new Admin(name, email, password);
 					p.addPerson(p);
 					System.out.println("Cadastro realizado com sucesso. ");
+					
+					/* Sendo o cadastro para Admin, com o uso do construtor Admin, tal usuário terá poderes esoecíficos*/
+				
 				} else {
 					Person s = new Student(name, email, password);
 					s.addPerson(s);
@@ -83,12 +89,18 @@ public class Program {
 					System.out.print("Senha: ");
 					password2 = sc.nextLine();
 					p = new Person(email2, password2);
+					/* O "p" é uma variável temporária apenas para utilizar no verifyLogin 
+					 Precisei criar essa variável para poder realizar a chamada de método que está na classe Person*/
 					Person p9 = p.verifyLogin(email2, password2);
+					/* Existindo o usuário, guardei-o nessa variável p9 para ser chamado nas próximas chamadas de método pertinentes */
+					
 					if (p9 != null) {
 						System.out.println("Login efetuado com sucesso. Seja bem-vindo.");
 						System.out.println();
 
 						if (p9.admin == true) {
+							/* Nesse ponto particular, quis testar se esse comando faria a mesma função do método isAdmin()*/
+							
 							do {
 								System.out.println("MENU DE MANIFESTAÇÕES PARA ADMINISTRADOR");
 								System.out.println("1 - LISTAR TODAS AS MANIFESTAÇÕES");
@@ -98,6 +110,10 @@ public class Program {
 								System.out.println("Selecione uma das opções desejadas:");
 								optionMenu = sc.nextInt();
 
+							/* Como o Admin e o Estudante tem poderes diferentes, já preferi diferenciar um Menu para cada tipo de usuário
+							 Desse modo, o Admin não poderá criar manifestações, mas poderá, por sua vez, listar tudo, pesquisar por qualquer manifestação
+							 e ainda deletar uma manifestação específica ou todas*/
+								
 								switch (optionMenu) {
 
 								case 1:
@@ -147,6 +163,9 @@ public class Program {
 								System.out.println("Selecione uma das opções desejadas:");
 								optionMenu = sc.nextInt();
 
+								/* No menu de estudantes, utilizei os métodos pertinentes apenas a tal classe. Por isso, o estudante somente poderá realizar
+								atividades referentes às suas próprias manifestações. No entanto, não poderá ele removê-las. Tal poder é apenas do Admin */
+								
 								switch (optionMenu) {
 
 								case 1:
@@ -176,10 +195,15 @@ public class Program {
 												+ manifestation.getId());
 									}
 
+									/* Para instanciar as manifestações, é necessário apenas saber o tipo e sua descrição, já que o usuário que está cadastrando
+									 também será inserido na manifestação específica como argumento no construtor de cada manifestação */
+									
 									break;
 								case 2:
 									System.out.println("Lista de suas manifestações");
 									Manifestation.showManifestationsForStudents(p9.getEmail());
+									/* Deste modo, todas as manifestações que estejam cadastradas sob referência daquele email, serão mostradas ao usuário estudante
+									 Isso evita que um estudante possa ver as manifestações de seu colega */
 									break;
 
 								case 3:
@@ -188,6 +212,9 @@ public class Program {
 									int protocol = sc.nextInt();
 									Manifestation.searchManifestation(p9, protocol);
 									break;
+									
+									/* Com o número de protocolo já determinado pelo contador no Construtor, isso permite realizar uma busca assertiva e um
+									método mais "limpo" */
 
 								}
 
@@ -197,15 +224,22 @@ public class Program {
 						}
 
 					} else {
-						System.out.println("As credenciais estão incorretas. Tente novamente.");
+						System.out.println("As credenciais estão incorretas ou o usuário não existe. Tente novamente ou realize seu cadastro.");
+						/*Caso o usuário não exista, será informado o exposto ao usuário.*/
 					}
 
 				} while (p.verifyLogin(email2, password2) == null);
+				/* O menu continuará a se repetir enquanto a condição não for preenchida*/
+				
 				break;
+				
 
 			}
 
 		} while (option != 3);
+		System.out.println("Você saiu do programa.");
+		
+		/* Importante avisar ao usuário que o programa se encerrou*/
 
 		sc.close();
 
